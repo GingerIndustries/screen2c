@@ -1,0 +1,415 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>screen2c &mdash; screen2c 0.1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="#" class="icon icon-home"> screen2c
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">screen2c</a></li>
+<li><a class="reference internal" href="#what-is-it">What is it?</a></li>
+<li><a class="reference internal" href="#how-do-i-get-it">How do I get it?</a></li>
+<li><a class="reference internal" href="#how-do-i-use-it">How do I use it?</a></li>
+<li><a class="reference internal" href="#examples">Examples</a><ul>
+<li><a class="reference internal" href="#display-hello-world-on-the-screen">Display “Hello World” on the screen</a></li>
+<li><a class="reference internal" href="#typewriter-out-text">Typewriter out text</a></li>
+<li><a class="reference internal" href="#disco-party-because-why-not">Disco party, because why not</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-screen2c">API</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+</div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">screen2c</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>screen2c</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="screen2c">
+<h1>screen2c<a class="headerlink" href="#screen2c" title="Permalink to this headline">¶</a></h1>
+<p>PCF8574 + LCD = fun</p>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+<div class="section" id="what-is-it">
+<h1>What is it?<a class="headerlink" href="#what-is-it" title="Permalink to this headline">¶</a></h1>
+<p>Exactly what it sounds like. I couldn’t find any good libraries to do this, so I modified one and made it better.
+Much thanks to the original dev, Denis Pleic.</p>
+</div>
+<div class="section" id="how-do-i-get-it">
+<h1>How do I get it?<a class="headerlink" href="#how-do-i-get-it" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">screen2c</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="how-do-i-use-it">
+<h1>How do I use it?<a class="headerlink" href="#how-do-i-use-it" title="Permalink to this headline">¶</a></h1>
+<p>Easy-peasy.</p>
+<p>1. Import the module, and create a Display object. This is what you’ll use to do all the stuff to the screen.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">screen2c</span>
+
+<span class="n">display</span> <span class="o">=</span> <span class="n">screen2c</span><span class="o">.</span><span class="n">Display</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>2. Do stuff with the Display! To display text, call write(), with the text as the first argument and line as the second one.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">display</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;World!&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="c1"># Infinite loop so that the program doesn&#39;t instantly stop</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="examples">
+<h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="display-hello-world-on-the-screen">
+<h2>Display “Hello World” on the screen<a class="headerlink" href="#display-hello-world-on-the-screen" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">screen2c</span>
+
+<span class="n">display</span> <span class="o">=</span> <span class="n">screen2c</span><span class="o">.</span><span class="n">Display</span><span class="p">()</span>
+
+<span class="n">display</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Hello World!!!&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="typewriter-out-text">
+<h2>Typewriter out text<a class="headerlink" href="#typewriter-out-text" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">screen2c</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">display</span> <span class="o">=</span> <span class="n">screen2c</span><span class="o">.</span><span class="n">Display</span><span class="p">()</span>
+<span class="n">display</span><span class="o">.</span><span class="n">setCursor</span><span class="p">(</span><span class="n">screen2c</span><span class="o">.</span><span class="n">CursorMode</span><span class="o">.</span><span class="n">BLINK</span><span class="p">)</span>
+
+<span class="n">typewriter</span> <span class="o">=</span> <span class="s2">&quot;Hello again!&quot;</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">typewriter</span><span class="p">)):</span>
+        <span class="n">display</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">typewriter</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="disco-party-because-why-not">
+<h2>Disco party, because why not<a class="headerlink" href="#disco-party-because-why-not" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">screen2c</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="n">display</span> <span class="o">=</span> <span class="n">screen2c</span><span class="o">.</span><span class="n">Display</span><span class="p">()</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">display</span><span class="o">.</span><span class="n">setBacklight</span><span class="p">(</span><span class="ow">not</span> <span class="n">display</span><span class="o">.</span><span class="n">backlightOn</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="module-screen2c">
+<span id="api"></span><h1>API<a class="headerlink" href="#module-screen2c" title="Permalink to this headline">¶</a></h1>
+<p>screen2c 0.1, made by Denis Pleic and The Ginger.</p>
+<div class="line-block">
+<div class="line">Compiled, mashed and generally mutilated 2014-2015 by Denis Pleic</div>
+<div class="line">Made available under GNU GENERAL PUBLIC LICENSE</div>
+<div class="line"><br /></div>
+<div class="line">Modified Python I2C library for Raspberry Pi, as found on <a class="reference external" href="http://www.recantha.co.uk/blog/?p=4849">http://www.recantha.co.uk/blog/?p=4849</a></div>
+<div class="line">Joined existing ‘i2c_lib.py’ and ‘lcddriver.py’ into a single library</div>
+<div class="line">added bits and pieces from various sources</div>
+<div class="line">By DenisFromHR (Denis Pleic) 2015-02-10, ver 0.1</div>
+<div class="line"><br /></div>
+<div class="line">Code modified and packaged 2021 by The Ginger</div>
+<div class="line">Credit to everyone who had a hand in making the original</div>
+<div class="line">LONG LIVE LINUX</div>
+<div class="line">2021-04-12</div>
+</div>
+<dl class="py class">
+<dt id="screen2c.CursorMode">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">screen2c.</span></code><code class="sig-name descname"><span class="pre">CursorMode</span></code><a class="headerlink" href="#screen2c.CursorMode" title="Permalink to this definition">¶</a></dt>
+<dd><p>An enum representing the cursor modes available on the display.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference internal" href="#screen2c.CursorMode.NONE" title="screen2c.CursorMode.NONE"><strong>NONE</strong></a> – No cursor</p></li>
+<li><p><a class="reference internal" href="#screen2c.CursorMode.LINE" title="screen2c.CursorMode.LINE"><strong>LINE</strong></a> – A line cursor</p></li>
+<li><p><a class="reference internal" href="#screen2c.CursorMode.BLINK" title="screen2c.CursorMode.BLINK"><strong>BLINK</strong></a> – A blinking block-shaped cursor.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="screen2c.CursorMode.BLINK">
+<code class="sig-name descname"><span class="pre">BLINK</span></code><em class="property"> <span class="pre">=</span> <span class="pre">1</span></em><a class="headerlink" href="#screen2c.CursorMode.BLINK" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="screen2c.CursorMode.LINE">
+<code class="sig-name descname"><span class="pre">LINE</span></code><em class="property"> <span class="pre">=</span> <span class="pre">2</span></em><a class="headerlink" href="#screen2c.CursorMode.LINE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="screen2c.CursorMode.NONE">
+<code class="sig-name descname"><span class="pre">NONE</span></code><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#screen2c.CursorMode.NONE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="screen2c.Display">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">screen2c.</span></code><code class="sig-name descname"><span class="pre">Display</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">39</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#screen2c.Display" title="Permalink to this definition">¶</a></dt>
+<dd><p>The actual display.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables</dt>
+<dd class="field-odd"><p><strong>backlightOn</strong> – Whether or not the backlight is on. DO NOT SET THIS PROPERTY</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>address</strong> (<em>hex</em><em>, </em><em>optional</em>) – The hex address of the screen (Defaults to 0x27)</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="screen2c.Display.clear">
+<code class="sig-name descname"><span class="pre">clear</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#screen2c.Display.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear the display.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="screen2c.Display.lcd_load_custom_chars">
+<code class="sig-name descname"><span class="pre">lcd_load_custom_chars</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fontdata</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#screen2c.Display.lcd_load_custom_chars" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="screen2c.Display.send">
+<code class="sig-name descname"><span class="pre">send</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#screen2c.Display.send" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="screen2c.Display.setBacklight">
+<code class="sig-name descname"><span class="pre">setBacklight</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#screen2c.Display.setBacklight" title="Permalink to this definition">¶</a></dt>
+<dd><p>Changes the state of the backlight.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>state</strong> (<em>bool</em>) – Whether or not the backlight is on.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="screen2c.Display.setCursor">
+<code class="sig-name descname"><span class="pre">setCursor</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#screen2c.Display.setCursor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change the cursor mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>mode</strong> (<a class="reference internal" href="#screen2c.CursorMode" title="screen2c.CursorMode"><em>screen2c.CursorMode</em></a>) – The mode of the cursor.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="screen2c.Display.write">
+<code class="sig-name descname"><span class="pre">write</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#screen2c.Display.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Displays a string on the display.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>string</strong> (<em>str</em>) – The text to display</p></li>
+<li><p><strong>line</strong> (<em>int</em><em>, </em><em>optional</em>) – The line number (Defaults to 1)</p></li>
+<li><p><strong>pos</strong> (<em>int</em><em>, </em><em>optional</em>) – The position of the start of the string (Defaults to 0)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Denis Pleic, GingerIndustries.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
