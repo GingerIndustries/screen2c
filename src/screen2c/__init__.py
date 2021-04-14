@@ -52,7 +52,7 @@ class CommunicationError(I2CError):
 class I2CDisabledError(I2CError):
     def __init__(self, port):
         self.port = port
-        super().__init__("Error starting I2C interface. Please check https://screen2c.readthedocs.io/#troubleshooting for help.", self.port)
+        super().__init__("Error starting I2C interface. Please check https://screen2c.readthedocs.io/en/latest/#i2cdisablederror for help.", self.port)
 class NoDeviceError(CommunicationError):
     def __init__(self, addr, port):
         self.addr = addr
@@ -60,7 +60,7 @@ class NoDeviceError(CommunicationError):
         super().__init__(self.addr, self.port, "Error inititalizing device!")
 class PermissionDeniedError(ScreenError):
     def __init__(self):
-        super().__init__("Permission denied to communicate on I2C bus. Please check https://screen2c.readthedocs.io/#troubleshooting for help.")
+        super().__init__("Permission denied to communicate on I2C bus. Please check https://screen2c.readthedocs.io/en/latest/#permissiondeniederror for help.")
 
 class i2c_device:
     """
@@ -172,8 +172,9 @@ class Display:
         :var backlightOn: Whether or not the backlight is on. DO NOT SET THIS PROPERTY
         :param address: The hex address of the screen (Defaults to 0x27)
         :type address: hex, optional
-        :raises NoDeviceError: If there is no I2C device at the specified address.
+        :raises NoDeviceError: If there is no I2C device at the specified address
         :raises PermissionDeniedError: If smbus is denied permission to connect to the device
+        :raises I2CDisabledError: If I2C is disabled on this device
     """
     def __init__(self, address = 0x27):
        self.lcd_device = i2c_device(address)

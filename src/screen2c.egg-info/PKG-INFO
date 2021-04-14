@@ -1,7 +1,7 @@
 Metadata-Version: 2.1
 Name: screen2c
-Version: 0.0.2
-Summary: An interface to I2C screens with a PCF8574T backpack
+Version: 0.1.0
+Summary: An interface to I2C screens with a PCF8574 backpack
 Home-page: https://github.com/GingerIndustries/screen2c
 Author: Denis Pleic
 Maintainer: GingerIndustries

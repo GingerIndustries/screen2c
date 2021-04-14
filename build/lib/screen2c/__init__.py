@@ -3,7 +3,7 @@
 # Original code found at:
 # https://gist.github.com/DenisFromHR/cc863375a6e19dce359d
 
-"""screen2c 0.1, made by Denis Pleic and The Ginger.
+"""screen2c 0.1.0, made by Denis Pleic and The Ginger.
 
 |  Compiled, mashed and generally mutilated 2014-2015 by Denis Pleic
 |  Made available under GNU GENERAL PUBLIC LICENSE
@@ -19,7 +19,7 @@
 |  2021-04-12
 """
 
-VERSION = "0.1"
+VERSION = "0.1.0"
 
 # i2c bus (0 -- original Pi, 1 -- Rev 2 Pi)
 import subprocess
@@ -27,18 +27,58 @@ if b"i2c-0" in subprocess.run(["ls", "/dev"], capture_output = True).stdout:
     I2CBUS = 0
 else:
     I2CBUS = 1
-
+print("screen2c " + VERSION + " on RaspPi with bus " + str(I2CBUS) + ".")
 
 import smbus
 from time import sleep
+
+class ScreenError(Exception):
+    pass
+class I2CError(ScreenError):
+    def __init__(self, message, port):
+        self.port = port
+        self.message = message
+        super().__init__(self.message)
+    def __str__(self):
+        return f"{self.message} Port: {self.port}"
+class CommunicationError(I2CError):
+    def __init__(self, addr, port, message="Error communicating with device!"):
+        self.addr = hex(addr)
+        self.port = port
+        self.message = message
+        super().__init__(self.message, self.port)
+    def __str__(self):
+        return f"{self.message} Address: {self.addr} Port: {self.port}"
+class I2CDisabledError(I2CError):
+    def __init__(self, port):
+        self.port = port
+        super().__init__("Error starting I2C interface. Please check https://screen2c.readthedocs.io/en/latest/#i2cdisablederror for help.", self.port)
+class NoDeviceError(CommunicationError):
+    def __init__(self, addr, port):
+        self.addr = addr
+        self.port = port
+        super().__init__(self.addr, self.port, "Error inititalizing device!")
+class PermissionDeniedError(ScreenError):
+    def __init__(self):
+        super().__init__("Permission denied to communicate on I2C bus. Please check https://screen2c.readthedocs.io/en/latest/#permissiondeniederror for help.")
 
 class i2c_device:
     """
        :meta private:
     """
     def __init__(self, addr, port=I2CBUS):
-       self.addr = addr
-       self.bus = smbus.SMBus(port)
+        self.addr = addr
+        self.port = port
+        try:
+            self.bus = smbus.SMBus(port)
+        except PermissionError as e:
+            raise PermissionDeniedError from None
+        except FileNotFoundError as e:
+            raise I2CDisabledError(self.port) from None
+        try:
+           self.write_cmd(0x00)
+        except OSError as e:
+            raise NoDeviceError(self.addr, self.port) from None
 
 # Write a single command
     def write_cmd(self, cmd):
@@ -132,6 +172,9 @@ class Display:
         :var backlightOn: Whether or not the backlight is on. DO NOT SET THIS PROPERTY
         :param address: The hex address of the screen (Defaults to 0x27)
         :type address: hex, optional
+        :raises NoDeviceError: If there is no I2C device at the specified address
+        :raises PermissionDeniedError: If smbus is denied permission to connect to the device
+        :raises I2CDisabledError: If I2C is disabled on this device
     """
     def __init__(self, address = 0x27):
        self.lcd_device = i2c_device(address)
@@ -147,9 +190,12 @@ class Display:
        self.send(LCD_ENTRYMODESET | LCD_ENTRYLEFT)
        sleep(0.2)
     def __del__(self):
-       self.clear()
-       self.send(LCD_DISPLAYCONTROL | LCD_DISPLAYOFF)
-       self.setBacklight(False)
+        try:
+            self.clear()
+            self.send(LCD_DISPLAYCONTROL | LCD_DISPLAYOFF)
+            self.setBacklight(False)
+        except:
+            pass
 
     # clocks EN to latch command
     def _lcd_strobe(self, data):
@@ -165,8 +211,19 @@ class Display:
 
     # write a command to lcd
     def send(self, cmd, mode=0):
-       self._send_four_bits(mode | (cmd & 0xF0))
-       self._send_four_bits(mode | ((cmd << 4) & 0xF0))
+        """Sends a hexadecimal command to the display.
+
+            :param cmd: The hexadeximal command to send.
+            :type cmd: hex
+            :param mode: Good question.
+            :type mode: int, optional
+            :raises CommunicationError: If the data fails to be sent.
+        """
+        try:
+            self._send_four_bits(mode | (cmd & 0xF0))
+            self._send_four_bits(mode | ((cmd << 4) & 0xF0))
+        except OSError:
+            raise CommunicationError(self.lcd_device.addr, self.lcd_device.port) from None
 
     # write a character to lcd (or character rom) 0x09: setBacklight | RS=DR<
     # works!
