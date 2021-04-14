@@ -94,6 +94,14 @@
 <li><a class="reference internal" href="#disco-party-because-why-not">Disco party, because why not</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#troubleshooting">Troubleshooting</a><ul>
+<li><a class="reference internal" href="#permissiondeniederror">PermissionDeniedError</a></li>
+<li><a class="reference internal" href="#nodeviceerror">NoDeviceError</a></li>
+<li><a class="reference internal" href="#communicationerror">CommunicationError</a></li>
+<li><a class="reference internal" href="#i2cdisablederror">I2CDisabledError</a></li>
+<li><a class="reference internal" href="#anything-else">Anything else</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-screen2c">API</a></li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
@@ -244,6 +252,73 @@ Much thanks to the original dev, Denis Pleic.</p>
 </div>
 </div>
 </div>
+<div class="section" id="troubleshooting">
+<h1>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h1>
+<p>Oh noes! Something’s gone wrong, and you’ve encountered that most dreaded of Python classes, an <strong>Exception!</strong> Don’t worry, it’s not <em>usually</em> a severe issue. Keep reading!</p>
+<div class="section" id="permissiondeniederror">
+<h2>PermissionDeniedError<a class="headerlink" href="#permissiondeniederror" title="Permalink to this headline">¶</a></h2>
+<p>This one’s pretty self-explanatory. There are two fixes:</p>
+<ol class="arabic simple">
+<li><p>Run your script as root.</p></li>
+<li><p>Add yourself to the GPIO group using:</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">usermod</span> <span class="o">-</span><span class="n">aG</span> <span class="n">gpio</span> <span class="n">yourusername</span>
+</pre></div>
+</div>
+<p>and reboot.</p>
+</div>
+<div class="section" id="nodeviceerror">
+<h2>NoDeviceError<a class="headerlink" href="#nodeviceerror" title="Permalink to this headline">¶</a></h2>
+<p>Again, self-explanatory. Check your screen is connected to the right GPIO pins and that no cables are loose! If it is, then you may have the wrong address for the screen. To check the address, type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">i2cdetect</span> <span class="o">-</span><span class="n">y</span> <span class="mi">1</span>
+<span class="c1"># or, if you have a really old RaspPi</span>
+<span class="n">sudo</span> <span class="n">i2cdetect</span> <span class="o">-</span><span class="n">y</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<p>You’ll get output that looks like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>     <span class="mi">0</span>  <span class="mi">1</span>  <span class="mi">2</span>  <span class="mi">3</span>  <span class="mi">4</span>  <span class="mi">5</span>  <span class="mi">6</span>  <span class="mi">7</span>  <span class="mi">8</span>  <span class="mi">9</span>  <span class="n">a</span>  <span class="n">b</span>  <span class="n">c</span>  <span class="n">d</span>  <span class="n">e</span>  <span class="n">f</span>
+<span class="mi">00</span><span class="p">:</span>          <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span>
+<span class="mi">10</span><span class="p">:</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="mi">1</span><span class="n">a</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span>
+<span class="mi">20</span><span class="p">:</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="mi">27</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span>
+<span class="mi">30</span><span class="p">:</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span>
+<span class="mi">40</span><span class="p">:</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span>
+<span class="mi">50</span><span class="p">:</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span>
+<span class="mi">60</span><span class="p">:</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span>
+<span class="mi">70</span><span class="p">:</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span> <span class="o">--</span>
+</pre></div>
+</div>
+<p>My Pi has 2 devices, one at address 27 and one at address 1a. 27 is my screen, and also happens to be the default for the Display. Keey note of the screen address. (If you have multiple and don’t know which it is, then try each. XD)</p>
+<p>Then, change the code for your Display object to look like this</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">display</span> <span class="o">=</span> <span class="n">screen2c</span><span class="o">.</span><span class="n">Display</span><span class="p">(</span><span class="mi">0</span><span class="n">xYourAddress</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For me, it would be</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">display</span> <span class="o">=</span> <span class="n">screen2c</span><span class="o">.</span><span class="n">Display</span><span class="p">(</span><span class="mh">0x27</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="communicationerror">
+<h2>CommunicationError<a class="headerlink" href="#communicationerror" title="Permalink to this headline">¶</a></h2>
+<p>This error generally occurs when one of the cables connecting the Pi to the screen has become disconnected between Display object creation and a method being called. Plug the cables back in and try again.</p>
+<p><em>Very rarely</em> this error can occur due to other factors. If this happens, <a class="reference external" href="https://github.com/GingerIndustries/screen2c/issues/new/choose">file an issue on GitHub.</a></p>
+</div>
+<div class="section" id="i2cdisablederror">
+<h2>I2CDisabledError<a class="headerlink" href="#i2cdisablederror" title="Permalink to this headline">¶</a></h2>
+<p>This error occurs because you have the I2C interface disabled on your RaspPi (this is how it is by default.) To fix it, follow this simple five-step process:</p>
+<ol class="arabic simple">
+<li><p>Type <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">raspi-config</span></code> in Terminal.</p></li>
+<li><p>Go to <code class="docutils literal notranslate"><span class="pre">Interface</span> <span class="pre">Options</span></code>.</p></li>
+<li><p>Choose <code class="docutils literal notranslate"><span class="pre">I2C</span></code></p></li>
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">Yes</span></code>, and then <code class="docutils literal notranslate"><span class="pre">OK</span></code>.</p></li>
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">Finish</span></code>.</p></li>
+</ol>
+<p>Piece of cake.</p>
+</div>
+<div class="section" id="anything-else">
+<h2>Anything else<a class="headerlink" href="#anything-else" title="Permalink to this headline">¶</a></h2>
+<p>Basically, this is an issue either with something in the depths of the Linux kernel underworld or an issue with screen2c itself. In both cases, <a class="reference external" href="https://github.com/GingerIndustries/screen2c/issues/new/choose">file an issue on GitHub and I’ll see what I can do about it.</a></p>
+</div>
+</div>
 <div class="section" id="module-screen2c">
 <span id="api"></span><h1>API<a class="headerlink" href="#module-screen2c" title="Permalink to this headline">¶</a></h1>
 <p>screen2c 0.1, made by Denis Pleic and The Ginger.</p>
@@ -261,6 +336,11 @@ Much thanks to the original dev, Denis Pleic.</p>
 <div class="line">LONG LIVE LINUX</div>
 <div class="line">2021-04-12</div>
 </div>
+<dl class="py exception">
+<dt id="screen2c.CommunicationError">
+<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">screen2c.</span></code><code class="sig-name descname"><span class="pre">CommunicationError</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Error</span> <span class="pre">communicating</span> <span class="pre">with</span> <span class="pre">device!'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#screen2c.CommunicationError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py class">
 <dt id="screen2c.CursorMode">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">screen2c.</span></code><code class="sig-name descname"><span class="pre">CursorMode</span></code><a class="headerlink" href="#screen2c.CursorMode" title="Permalink to this definition">¶</a></dt>
@@ -302,6 +382,12 @@ Much thanks to the original dev, Denis Pleic.</p>
 <dt class="field-even">Parameters</dt>
 <dd class="field-even"><p><strong>address</strong> (<em>hex</em><em>, </em><em>optional</em>) – The hex address of the screen (Defaults to 0x27)</p>
 </dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference internal" href="#screen2c.NoDeviceError" title="screen2c.NoDeviceError"><strong>NoDeviceError</strong></a> – If there is no I2C device at the specified address.</p></li>
+<li><p><a class="reference internal" href="#screen2c.PermissionDeniedError" title="screen2c.PermissionDeniedError"><strong>PermissionDeniedError</strong></a> – If smbus is denied permission to connect to the device</p></li>
+</ul>
+</dd>
 </dl>
 <dl class="py method">
 <dt id="screen2c.Display.clear">
@@ -317,7 +403,19 @@ Much thanks to the original dev, Denis Pleic.</p>
 <dl class="py method">
 <dt id="screen2c.Display.send">
 <code class="sig-name descname"><span class="pre">send</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#screen2c.Display.send" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Sends a hexadecimal command to the display.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cmd</strong> (<em>hex</em>) – The hexadeximal command to send.</p></li>
+<li><p><strong>mode</strong> (<em>int</em><em>, </em><em>optional</em>) – Good question.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference internal" href="#screen2c.CommunicationError" title="screen2c.CommunicationError"><strong>CommunicationError</strong></a> – If the data fails to be sent.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="screen2c.Display.setBacklight">
@@ -357,6 +455,31 @@ Much thanks to the original dev, Denis Pleic.</p>
 </dd></dl>
 
 </dd></dl>
+
+<dl class="py exception">
+<dt id="screen2c.I2CDisabledError">
+<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">screen2c.</span></code><code class="sig-name descname"><span class="pre">I2CDisabledError</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#screen2c.I2CDisabledError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py exception">
+<dt id="screen2c.I2CError">
+<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">screen2c.</span></code><code class="sig-name descname"><span class="pre">I2CError</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#screen2c.I2CError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py exception">
+<dt id="screen2c.NoDeviceError">
+<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">screen2c.</span></code><code class="sig-name descname"><span class="pre">NoDeviceError</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#screen2c.NoDeviceError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py exception">
+<dt id="screen2c.PermissionDeniedError">
+<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">screen2c.</span></code><code class="sig-name descname"><span class="pre">PermissionDeniedError</span></code><a class="headerlink" href="#screen2c.PermissionDeniedError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py exception">
+<dt id="screen2c.ScreenError">
+<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">screen2c.</span></code><code class="sig-name descname"><span class="pre">ScreenError</span></code><a class="headerlink" href="#screen2c.ScreenError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </div>
 <div class="section" id="indices-and-tables">
