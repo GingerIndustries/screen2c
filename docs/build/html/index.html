@@ -260,12 +260,13 @@ Much thanks to the original dev, Denis Pleic.</p>
 <p>This one’s pretty self-explanatory. There are two fixes:</p>
 <ol class="arabic simple">
 <li><p>Run your script as root.</p></li>
-<li><p>Add yourself to the GPIO group using:</p></li>
+<li><p>Add yourself to the GPIO and I2C groups using:</p></li>
 </ol>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">usermod</span> <span class="o">-</span><span class="n">aG</span> <span class="n">gpio</span> <span class="n">yourusername</span>
+<span class="n">sudo</span> <span class="n">usermod</span> <span class="o">-</span><span class="n">aG</span> <span class="n">i2c</span> <span class="n">yourusername</span>
 </pre></div>
 </div>
-<p>and reboot.</p>
+<p>and <strong>reboot</strong>.</p>
 </div>
 <div class="section" id="nodeviceerror">
 <h2>NoDeviceError<a class="headerlink" href="#nodeviceerror" title="Permalink to this headline">¶</a></h2>
@@ -321,7 +322,7 @@ Much thanks to the original dev, Denis Pleic.</p>
 </div>
 <div class="section" id="module-screen2c">
 <span id="api"></span><h1>API<a class="headerlink" href="#module-screen2c" title="Permalink to this headline">¶</a></h1>
-<p>screen2c 0.1.0, made by Denis Pleic and The Ginger.</p>
+<p>screen2c 0.1.1, made by Denis Pleic and The Ginger.</p>
 <div class="line-block">
 <div class="line">Compiled, mashed and generally mutilated 2014-2015 by Denis Pleic</div>
 <div class="line">Made available under GNU GENERAL PUBLIC LICENSE</div>

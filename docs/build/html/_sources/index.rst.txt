@@ -97,13 +97,14 @@ PermissionDeniedError
 This one's pretty self-explanatory. There are two fixes:
 
 1. Run your script as root.
-2. Add yourself to the GPIO group using:
+2. Add yourself to the GPIO and I2C groups using:
 
 ::
 
 	sudo usermod -aG gpio yourusername
+	sudo usermod -aG i2c yourusername
 
-and reboot.
+and **reboot**.
 
 NoDeviceError
 -------------

@@ -3,7 +3,7 @@
 # Original code found at:
 # https://gist.github.com/DenisFromHR/cc863375a6e19dce359d
 
-"""screen2c 0.1.0, made by Denis Pleic and The Ginger.
+"""screen2c 0.1.1, made by Denis Pleic and The Ginger.
 
 |  Compiled, mashed and generally mutilated 2014-2015 by Denis Pleic
 |  Made available under GNU GENERAL PUBLIC LICENSE
@@ -19,7 +19,7 @@
 |  2021-04-12
 """
 
-VERSION = "0.1.0"
+VERSION = "0.1.1"
 
 # i2c bus (0 -- original Pi, 1 -- Rev 2 Pi)
 import subprocess
@@ -178,7 +178,7 @@ class Display:
     """
     def __init__(self, address = 0x27):
        self.lcd_device = i2c_device(address)
-       self.setBacklightOn = True
+       self.backlightOn = True
        self.send(0x03)
        self.send(0x03)
        self.send(0x03)
